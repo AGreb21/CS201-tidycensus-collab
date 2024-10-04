@@ -19,4 +19,6 @@ Owner: Alex Greb
 
 Collabarotor: Rhyn
 
- alex greb is my love <3
+Alex Greb is my love <3
+
+I hate Rhyn Chambers

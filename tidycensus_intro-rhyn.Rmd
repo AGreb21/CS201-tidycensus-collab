@@ -153,7 +153,7 @@ names(years) <- years
 family_poverty_2009_2019 <- map_dfr(years, ~{
   get_acs(
     geography = "county",
-    variables = c(percent_of_families_with_income_below_poverty_line = "DP03_0119P"),
+    variables = c(percent_of_families_with_income_below_poverty_line = "DP02_0070P"),
     state = "HI",
     county = "Honolulu",
     year = .x,
@@ -262,7 +262,16 @@ Investigating (insert variable here) on Oahu at the census tract level.
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 
-
+oahu_family_poverty <- get_acs(
+  geography = "tract",
+  variables = c(percent_of_families_with_income_below_poverty_line = "DP03_0119P"),
+  state = "HI",
+  county = "Honolulu",
+  geometry = TRUE,
+  output = "wide",
+  year = 2022
+) %>% 
+  dplyr::filter(GEOID != "15003981200" & GEOID !="15003981900")
 ```
 
 ### Challenge: Mapping

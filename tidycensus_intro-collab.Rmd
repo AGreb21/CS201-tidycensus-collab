@@ -258,17 +258,36 @@ Directions:
 
 ### Challenge: Import Data
 
-Investigating (insert variable here) on Oahu at the census tract level.
+Investigating (veteran status) on Oahu at the census tract level.
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
-
-
+oahu_veteran_status <- get_acs(
+  geography = "tract",
+  variables = c(veteran_status = "DP02_0070P"),
+  state = "HI",
+  county = "Honolulu",
+  geometry = TRUE,
+  output = "wide",
+  year = 2022
+) %>% 
+  dplyr::filter(GEOID != "15003981200" & GEOID !="15003981900")
 ```
 
 ### Challenge: Mapping
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
+employement_status_map <- ggplot(oahu_employment_status) +
+  geom_sf_interactive(
+    aes(
+      fill = employment_statusE,
+      tooltip = paste(NAME, ": ", employment_statusE, "%"),
+      data_id = NAME
+    )
+  ) +
+  scale_fill_viridis_c(option = "magma") +
+  theme_void() 
 
+girafe(ggobj = employment_status_map, width = 700, height = 400)
 
 ```
 

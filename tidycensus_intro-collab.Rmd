@@ -261,6 +261,7 @@ Directions:
 Investigating (veteran status) on Oahu at the census tract level.
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
+
 oahu_veteran_status <- get_acs(
   geography = "tract",
   variables = c(veteran_status = "DP02_0070P"),
@@ -276,18 +277,19 @@ oahu_veteran_status <- get_acs(
 ### Challenge: Mapping
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
-employement_status_map <- ggplot(oahu_employment_status) +
+
+veteran_status_map <- ggplot(oahu_veteran_status) +
   geom_sf_interactive(
     aes(
-      fill = employment_statusE,
-      tooltip = paste(NAME, ": ", employment_statusE, "%"),
+      fill = veteran_statusE,
+      tooltip = paste(NAME, ": ", veteran_statusE, "%"),
       data_id = NAME
     )
   ) +
   scale_fill_viridis_c(option = "magma") +
   theme_void() 
 
-girafe(ggobj = employment_status_map, width = 700, height = 400)
+girafe(ggobj = veteran_status_map, width = 700, height = 400)
 
 ```
 

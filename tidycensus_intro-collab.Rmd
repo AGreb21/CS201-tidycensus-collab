@@ -297,7 +297,27 @@ girafe(ggobj = veteran_status_map, width = 700, height = 400)
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 
+years <- 2012:2022
+names(years) <- years
 
+veteran_status_2012_2022 <- map_dfr(years, ~{
+  get_acs(
+    geography = "county",
+    variables = c(percent_veterans = "DP02_0070P"),
+    state = "HI",
+    county = "Honolulu",
+    year = .x,
+    survey = "acs5"
+  )
+}, .id = "year")
+
+
+```
+
+```{r}
+ggplot(veteran_status_2012_2022, aes(x = year, y = estimate, group = 1)) + 
+  geom_line() + 
+  geom_point()
 ```
 
 ### Challenge: Scatter Plot
